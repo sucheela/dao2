@@ -17,31 +17,71 @@
 <html>
 <head>
     <?= $this->Html->charset() ?>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= $this->fetch('title') ?>
+        Dao.Dating: <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
+    <?= $this->Html->css('bootstrap.min.css') ?>
+    <?= $this->Html->css('global.css') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
 </head>
 <body>
-    <div id="container">
-        <div id="header">
+  <header>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-top-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <span>Dao.Dating</span>
+          </a>
+        </div><!-- .navbar-header -->
+        <div class="collapse navbar-collapse" id="navbar-top-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="/" class="dropdown-toggle" data-toggle="dropdown"
+                 role="button" aria-haspopup="true" aria-expanded="false">
+                About Dao.Dating<span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="/#chinese-astrology">Chinese Astrology</a></li>
+                <li><a href="/#who-we-are">Who We Are</a></li>
+              </ul>
+            </li>
+            <li><a href="/#contacts">Contacts</a>
+          </ul>
+        </div><!-- .navbar-right -->
+      </div><!-- .container-fluid -->
+    </nav>
+  </header>
+  
+    <div class="container-fluid">
+        <div class="container-inner">
             <h1><?= __('Error') ?></h1>
-        </div>
-        <div id="content">
             <?= $this->Flash->render() ?>
 
             <?= $this->fetch('content') ?>
         </div>
-        <div id="footer">
-            <?= $this->Html->link(__('Back'), 'javascript:history.back()') ?>
-        </div>
     </div>
+    
+  <footer>
+    <p>Copyrights &copy; <?php echo date('Y') ?> Dao.Dating
+      | <a href="privacy.php">Privacy Policy</a>
+      | <a href="terms.php">Terms and Conditions</a></p>
+  </footer>
+
+  <?= $this->Html->script('jquery.min.js') ?>
+  <?= $this->Html->script('bootstrap.min.js') ?>
+  <?= $this->fetch('script') ?>
+
 </body>
 </html>

@@ -1,0 +1,49 @@
+div.users {
+  margin: 0px auto;
+  max-width: 800px;
+}
+
+div.users div.form {
+  max-width: 400px;
+  margin: 0px 10px 0px 10px;
+  padding-right: 30px;
+  border-right: 1px solid #ccc;
+  display: inline-block;
+}
+
+div.users div.social {
+  max-width: 380px;
+  margin: 0px 10px 0px 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+div.resetform {
+  max-width: 400px;
+  margin: 0px auto;
+}
+
+.g-recaptcha {
+  margin: 0px auto 10px auto;
+}
+.g-recaptcha>div {
+  margin: 0px auto;
+}
+
+div.register {
+  max-width: 400px;
+  margin: 0px auto;
+}
+
+div.register select.year {
+  width: 25%;
+  display: inline-block;
+}
+div.register select.day {
+  width: 25%;
+  display: inline-block;
+}
+div.register select.month {
+  width: 50%;
+  display: inline-block;
+}

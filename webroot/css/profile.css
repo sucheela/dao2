@@ -1,0 +1,81 @@
+.profile>.row {
+  margin-right: 0px;
+}
+
+.profile-images .hero-image img {
+  margin-left: 30px;
+  margin-right: 15px;
+  max-width: 90%;
+  border: 1px solid #bbb;
+  border-radius: 25px;
+}
+.profile-images .more-images {
+  margin-left: 30px;
+  margin-right: 15px;
+  max-width: 90%;
+  overflow: auto;
+}
+
+.profile-info {
+  padding-right: 15px;
+}
+.profile-info ul li {
+  list-style: none;
+}
+.profile-info ul li:before {
+  font-family: 'FontAwesome';
+  content: '\f00c';
+  margin-right: 8px;
+  color: rgba(188, 0, 50, 0.7);
+  font-size: 28px
+}
+.profile-info ul.no-match li:before {
+  font-family: 'FontAwesome';
+  content: '\f00d';
+  margin-right: 8px;
+  color: rgba(188, 0, 50, 0.7);
+  font-size: 24px
+}
+.profile-info .user-intro {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.score {
+  font-size: 2em;
+  width: 100%;
+  text-align: center;
+}
+
+.action {
+  font-size: 2em;
+  width: 100%;
+  text-align: center;
+}
+.action a.message:hover {
+  color: #80b1cc;
+}
+.action a.favorite,
+.action a.not-favorite {
+  color: #bc0032;
+}
+.action a.favorite:hover,
+.action a.not-favorite:hover {
+  color: #f98eab;
+}
+.action a.block,
+.action a.not-block {
+  color: #bc0032;
+}
+.action a.block:hover,
+.action a.not-block:hover {
+  color: #f98eab;
+}
+
+.branch-detail {
+  padding-left: 30px;
+  padding-right: 15px;
+}
+.branch-detail img {
+  width: 100%;
+}

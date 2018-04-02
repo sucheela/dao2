@@ -1,0 +1,78 @@
+.matches {
+  margin: 0px 20px;
+}
+.matches h4 {
+  text-align: center;
+}
+
+.matches ul {
+  list-style: none;
+}
+
+.matches ul li {
+  width: 23%;
+  padding: 15px;
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.matches ul li .title,
+.matches ul li .location,
+.matches ul li .last-visited,
+.matches ul li .score,
+.matches ul li .action {
+  width: 100%;
+  text-align: center;
+  padding: 5px 0 0 0;
+}
+.matches ul li .location {
+  font-size: 0.8em;
+}
+.matches ul li .score {
+  font-size: 0.8em;
+}
+.matches ul li .score .stars {
+  font-size: 1.5em;
+}
+
+.matches ul li .action {
+  font-size: 1.5em;
+}
+.matches .action a.view:hover,
+.matches .action a.message:hover {
+  color: #80b1cc;
+}
+.matches .action a.favorite,
+.matches .action a.not-favorite {
+  color: #bc0032;
+}
+.matches .action a.favorite:hover,
+.matches .action a.not-favorite:hover {
+  color: #f98eab;
+}
+.matches .action a.block,
+.matches .action a.not-block {
+  color: #bc0032;
+}
+.matches .action a.block:hover,
+.matches .action a.not-block:hover {
+  color: #f98eab;
+}
+
+@media (max-width: 480px){
+  .matches ul li .score .stars {
+    font-size: 0.7em;
+  }
+  .matches ul li .action {
+    font-size: 0.8em;
+  }
+}
+
+.matches img {
+  width: 100%;
+}
+
+
+
+

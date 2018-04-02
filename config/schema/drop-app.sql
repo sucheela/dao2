@@ -1,0 +1,15 @@
+drop table messages;
+drop table user_blocks;
+drop table user_visitors;
+drop table user_favorites;
+drop table user_images;
+drop table user_into_genders;
+drop table user_password_resets;
+drop table users;
+drop table countries;
+drop table stem_rules;
+drop table phase_rules;
+drop table stems;
+drop table phases;
+drop table branch_rules;
+drop table branches;

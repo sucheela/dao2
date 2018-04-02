@@ -1,278 +1,170 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       https://opensource.org/licenses/mit-license.php MIT License
- */
-use Cake\Cache\Cache;
-use Cake\Core\Configure;
-use Cake\Core\Plugin;
-use Cake\Datasource\ConnectionManager;
-use Cake\Error\Debugger;
-use Cake\Network\Exception\NotFoundException;
+// home.ctp --- 
+// 
+// Filename: home.ctp
+// Author: sucheela
+// Created: Mon Dec 25 17:59:17 2017 (-0500)
+// Last-Updated: Sun Feb 11 15:18:18 2018 (-0500)
+//           By: sucheela
+//     Update #: 2
+// 
+// 
+//
 
-$this->layout = false;
-
-if (!Configure::read('debug')) :
-    throw new NotFoundException(
-        'Please replace src/Template/Pages/home.ctp with your own version or re-enable debug mode.'
-    );
-endif;
-
-$cakeDescription = 'CakePHP: the rapid development PHP framework';
+$this->assign('title', 'About');
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>
-    </title>
 
-    <?= $this->Html->meta('icon') ?>
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
-    <?= $this->Html->css('home.css') ?>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:500i|Roboto:300,400,700|Roboto+Mono" rel="stylesheet">
-</head>
-<body class="home">
+<section id="chinese-astrology">
+    <h1>How We Make Your Matches</h1>
+    <p>
+	<strong>
+        You may be wondering, how do we determine compatibility between two people?  
+	</strong>
+	</p>
+	<p> 
+		First, you enter your date and hour of your birth. The hour, day, month and year that you were born will be matched with an animal. 
+	</p>
+	<p> 
+		Now, you may have heard of the animal signs associated with Chinese astrology. You likely know the animal sign that matches with the year of your birth from somewhere like the menu at the local Chinese restaurant.   
+	</p>
+	<p>
+	   In order, they are: Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Sheep, Monkey, Rooster, Dog, and Boar
+	</p>
+	<p>
+	   But when you delve a little deeper into Chinese astrology, like we have, there are actually four animals, sometimes called pillars, that make up your own personal Chinese astrology. As mentioned above, these four animals are determined by the hour, day, month and year of your birth. 
+	</p>
+	<p>
+	   From here, we compare each of those pillars to other people who have signed up. We then find your best matches based on the information that you provided.  
+	</p>
+	<p>
+	   Some matches are nearly perfect, others are simply not compatible.  The matches will be listed starting with the most compatible and ending with the least compatible.  
+	</p>
+	<p>
+	   Chinese astrology dates back all the way to the year 2,637 BC. Start your next relationship using a philosophy that has been used by millions of people for several thousand years. 
+	</p>
 
-<header class="row">
-    <div class="header-image"><?= $this->Html->image('cake.logo.svg') ?></div>
-    <div class="header-title">
-        <h1>Welcome to CakePHP <?= Configure::version() ?> Red Velvet. Build fast. Grow solid.</h1>
+  <p class="text-center">
+            <a class="btn btn-default btn-right" href="/usrs/register">Join Now</a>
+    		<a class="btn btn-default btn-right btn-more"
+		data-src="chinese-astrology-more" href="#" data-alt="Show Less">Learn More</a>
+  </p>
+    
+    <div class="more" id="chinese-astrology-more" style="display: none;">
+<p>Chinese astrology is based on the lunar calendar. Emperor Huang Di instituted the lunar calendar in the year 2,637 BC, which was the 61st year of his reign.</p>
+
+<p>We are currently in the 78th 60-year cycle. The cycle we are in started on February 2nd, 1984 and will not end until 2044.</p>
+
+<p><strong>
+Before the Animals
+</strong></p>
+
+<p>
+Around 2,000 years ago, the astronomer and historian Sima Qian staffed 28 observers to watch the skies.
+</p>  
+
+<p>
+Their studies were not just limited to the night, they watched the sun and clouds in the day as well.  These observers watched the way the planets moved, spotting comets, auroras, and spots in the sun. These sorts of phenomena were regarded as heaven’s messengers.
+</p>  
+
+<p>
+The ancient Chinese had a 10-day calendar, which is still in use today. Each day on this calendar corresponds to a “Celestial Stem,” while hours, months and, and years are associated with a sequence of 12 signs called the “Earthly Branches.” The latter have come to be known popularly as the 12 animal signs.
+</p>   
+
+<p>
+These two bases of 10 Stems and 12 Branches were combined to form a sequence of 60 Stem and Branch combinations. This allowed the days to be distinguished more accurately.  This sequence makes up the calendar that people throughout East Asia have used for thousands of years to count time.
+</p>
+
+<p><strong>
+More About the Branches
+</strong></p>
+
+<p>
+As Chinese astrology evolved, each year, month, day, and hour came to have an Earthly Branch association. These Branches represent the fundamental forces of time acting on us on Earth. They are used to describe time here, relative to the universe, and thus are thought to influence who we are more directly.
+</p>
+
+<p>
+The 12 Branches are popularly associated with the 12 animals of Chinese astrology. There are a lot of legends that explain how the animals came to be part of the Chinese astrological calendar. A popular version of this lore is that as Buddha lay dying, he summoned all the animals in the world to bid him farewell.
+</p>
+
+<p>
+Only 12 animals showed up, and so Buddha named each of the 12 years of the lunar cycle after them.
+</p> 
+
+<p><strong>
+More About the Stems
+</strong></p>
+
+<p>
+The Celestial Stems represent the 10-day sequence that makes up a week in the traditional Chinese calendar. These also came to have associations with each hour, month, and year. They represent the Qi of space, the stars, and the constellations, and so it is thought that their influence on us is more diffuse.
+</p>
+
+<p>
+Each Stem is described as being either Yin or Yang, and one of the Five Phases, which are: Wood, Fire, Earth, Metal, and Water.
+</p>
+
+<p><strong>
+What are the Four Pillars?
+</strong></p>
+
+<p>
+The Four Pillars are the year, month, day, and hour in which a person is born. Each Pillar consists of one Branch and one Stem (e.g. Bing Wu, or Yang Fire Horse).
+</p>
+
+<p>
+The Earthly Branches, one from each Pillar, represent the personality types that are most often used in popular Chinese astrology to determine compatibility between two people, and how we determine your best matches.
+</p>    
+
+<p>
+Ready to begin?
+</p>       
+    </div>    
+	
+</section>
+
+<section id="who-we-are">
+    <h1>Who We Are</h1>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dolor
+        ipsum, luctus eu risus eget, facilisis dignissim ligula. Vestibulum
+        condimentum a odio non tincidunt. Duis tincidunt nulla nec lorem
+        ultricies facilisis. In nec mi libero. Duis porttitor consectetur
+        libero, a feugiat justo maximus elementum. Fusce mauris magna, euismod
+        ut viverra non, tempor ac est. Vivamus id vehicula tellus. Phasellus
+        imperdiet tincidunt augue a blandit. Aenean nec urna elit.
+    </p>
+    <p>
+        Maecenas felis mauris, auctor id faucibus sit amet, maximus a
+        justo. Praesent ac placerat tortor, sit amet ultricies odio. Nam
+        elementum sagittis velit, id scelerisque magna congue at. Duis et
+        molestie elit. Nullam gravida turpis augue, eget viverra arcu pulvinar
+        in. Aenean placerat est in odio sodales viverra. Sed in mauris
+        dolor. Nulla in quam erat. Proin nibh urna, efficitur vitae placerat
+        sit amet, pulvinar ac velit. Etiam malesuada est lorem, a rhoncus
+        libero commodo eu. Nulla tempus risus eget ante semper dapibus.  
+    </p>
+            <a class="btn btn-default btn-right center-block" href="/users/register">Join Now</a>
+    </section>
+
+<section id="contacts" class="contacts">
+    <div class="box">
+        <a href="mailto:contact@dao.dating">
+            <h3>Email</h3>
+            <p class="fa fa-envelope fa-2x"></p>
+            <p>contact@dao.dating</p>
+        </a>
     </div>
-</header>
-
-<div class="row">
-    <div class="columns large-12">
-        <div class="ctp-warning alert text-center">
-            <p>Please be aware that this page will not be shown if you turn off debug mode unless you replace src/Template/Pages/home.ctp with your own version.</p>
-        </div>
-        <div id="url-rewriting-warning" class="alert url-rewriting">
-            <ul>
-                <li class="bullet problem">
-                    URL rewriting is not properly configured on your server.<br />
-                    1) <a target="_blank" href="https://book.cakephp.org/3.0/en/installation.html#url-rewriting">Help me configure it</a><br />
-                    2) <a target="_blank" href="https://book.cakephp.org/3.0/en/development/configuration.html#general-configuration">I don't / can't use URL rewriting</a>
-                </li>
-            </ul>
-        </div>
-        <?php Debugger::checkSecurityKeys(); ?>
+    <div class="box">
+        <a href="http://www.facebook.com/dao.dating" target="_blank">
+            <h3>Like</h3>
+            <p class="fa fa-facebook fa-2x"></p>
+            <p>Facebook</p>
+        </a>
     </div>
-</div>
-
-<div class="row">
-    <div class="columns large-6">
-        <h4>Environment</h4>
-        <ul>
-        <?php if (version_compare(PHP_VERSION, '5.6.0', '>=')) : ?>
-            <li class="bullet success">Your version of PHP is 5.6.0 or higher (detected <?= PHP_VERSION ?>).</li>
-        <?php else : ?>
-            <li class="bullet problem">Your version of PHP is too low. You need PHP 5.6.0 or higher to use CakePHP (detected <?= PHP_VERSION ?>).</li>
-        <?php endif; ?>
-
-        <?php if (extension_loaded('mbstring')) : ?>
-            <li class="bullet success">Your version of PHP has the mbstring extension loaded.</li>
-        <?php else : ?>
-            <li class="bullet problem">Your version of PHP does NOT have the mbstring extension loaded.</li>;
-        <?php endif; ?>
-
-        <?php if (extension_loaded('openssl')) : ?>
-            <li class="bullet success">Your version of PHP has the openssl extension loaded.</li>
-        <?php elseif (extension_loaded('mcrypt')) : ?>
-            <li class="bullet success">Your version of PHP has the mcrypt extension loaded.</li>
-        <?php else : ?>
-            <li class="bullet problem">Your version of PHP does NOT have the openssl or mcrypt extension loaded.</li>
-        <?php endif; ?>
-
-        <?php if (extension_loaded('intl')) : ?>
-            <li class="bullet success">Your version of PHP has the intl extension loaded.</li>
-        <?php else : ?>
-            <li class="bullet problem">Your version of PHP does NOT have the intl extension loaded.</li>
-        <?php endif; ?>
-        </ul>
+    <div class="box">
+        <a href="http://www.twitter.com/dao.dating" target="_blank">
+            <h3>Follow</h3>
+            <p class="fa fa-twitter fa-2x"></p>
+            <p>Twitter</p>
+        </a>
     </div>
-    <div class="columns large-6">
-        <h4>Filesystem</h4>
-        <ul>
-        <?php if (is_writable(TMP)) : ?>
-            <li class="bullet success">Your tmp directory is writable.</li>
-        <?php else : ?>
-            <li class="bullet problem">Your tmp directory is NOT writable.</li>
-        <?php endif; ?>
-
-        <?php if (is_writable(LOGS)) : ?>
-            <li class="bullet success">Your logs directory is writable.</li>
-        <?php else : ?>
-            <li class="bullet problem">Your logs directory is NOT writable.</li>
-        <?php endif; ?>
-
-        <?php $settings = Cache::getConfig('_cake_core_'); ?>
-        <?php if (!empty($settings)) : ?>
-            <li class="bullet success">The <em><?= $settings['className'] ?>Engine</em> is being used for core caching. To change the config edit config/app.php</li>
-        <?php else : ?>
-            <li class="bullet problem">Your cache is NOT working. Please check the settings in config/app.php</li>
-        <?php endif; ?>
-        </ul>
-    </div>
-    <hr />
-</div>
-
-<div class="row">
-    <div class="columns large-6">
-        <h4>Database</h4>
-        <?php
-        try {
-            $connection = ConnectionManager::get('default');
-            $connected = $connection->connect();
-        } catch (Exception $connectionError) {
-            $connected = false;
-            $errorMsg = $connectionError->getMessage();
-            if (method_exists($connectionError, 'getAttributes')) :
-                $attributes = $connectionError->getAttributes();
-                if (isset($errorMsg['message'])) :
-                    $errorMsg .= '<br />' . $attributes['message'];
-                endif;
-            endif;
-        }
-        ?>
-        <ul>
-        <?php if ($connected) : ?>
-            <li class="bullet success">CakePHP is able to connect to the database.</li>
-        <?php else : ?>
-            <li class="bullet problem">CakePHP is NOT able to connect to the database.<br /><?= $errorMsg ?></li>
-        <?php endif; ?>
-        </ul>
-    </div>
-    <div class="columns large-6">
-        <h4>DebugKit</h4>
-        <ul>
-        <?php if (Plugin::loaded('DebugKit')) : ?>
-            <li class="bullet success">DebugKit is loaded.</li>
-        <?php else : ?>
-            <li class="bullet problem">DebugKit is NOT loaded. You need to either install pdo_sqlite, or define the "debug_kit" connection name.</li>
-        <?php endif; ?>
-        </ul>
-    </div>
-    <hr />
-</div>
-
-<div class="row">
-    <div class="columns large-6">
-        <h3>Editing this Page</h3>
-        <ul>
-            <li class="bullet cutlery">To change the content of this page, edit: src/Template/Pages/home.ctp.</li>
-            <li class="bullet cutlery">You can also add some CSS styles for your pages at: webroot/css/.</li>
-        </ul>
-    </div>
-    <div class="columns large-6">
-        <h3>Getting Started</h3>
-        <ul>
-            <li class="bullet book"><a target="_blank" href="https://book.cakephp.org/3.0/en/">CakePHP 3.0 Docs</a></li>
-            <li class="bullet book"><a target="_blank" href="https://book.cakephp.org/3.0/en/tutorials-and-examples/bookmarks/intro.html">The 15 min Bookmarker Tutorial</a></li>
-            <li class="bullet book"><a target="_blank" href="https://book.cakephp.org/3.0/en/tutorials-and-examples/blog/blog.html">The 15 min Blog Tutorial</a></li>
-            <li class="bullet book"><a target="_blank" href="https://book.cakephp.org/3.0/en/tutorials-and-examples/cms/installation.html">The 15 min CMS Tutorial</a></li>
-        </ul>
-    </div>
-</div>
-
-<div class="row">
-    <div class="columns large-12 text-center">
-        <h3 class="more">More about Cake</h3>
-        <p>
-            CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Front Controller and MVC.<br />
-            Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
-        </p>
-    </div>
-    <hr/>
-</div>
-
-<div class="row">
-    <div class="columns large-4">
-        <i class="icon support">P</i>
-        <h3>Help and Bug Reports</h3>
-        <ul>
-            <li class="bullet cutlery">
-                <a href="irc://irc.freenode.net/cakephp">irc.freenode.net #cakephp</a>
-                <ul><li>Live chat about CakePHP</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="http://cakesf.herokuapp.com/">Slack</a>
-                <ul><li>CakePHP Slack support</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="https://github.com/cakephp/cakephp/issues">CakePHP Issues</a>
-                <ul><li>CakePHP issues and pull requests</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="http://discourse.cakephp.org/">CakePHP Forum</a>
-                <ul><li>CakePHP official discussion forum</li></ul>
-            </li>
-        </ul>
-    </div>
-    <div class="columns large-4">
-        <i class="icon docs">r</i>
-        <h3>Docs and Downloads</h3>
-        <ul>
-            <li class="bullet cutlery">
-                <a href="https://api.cakephp.org/3.0/">CakePHP API</a>
-                <ul><li>Quick Reference</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="https://book.cakephp.org/3.0/en/">CakePHP Documentation</a>
-                <ul><li>Your Rapid Development Cookbook</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="https://bakery.cakephp.org">The Bakery</a>
-                <ul><li>Everything CakePHP</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="https://plugins.cakephp.org">CakePHP plugins repo</a>
-                <ul><li>A comprehensive list of all CakePHP plugins created by the community</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="https://github.com/cakephp/">CakePHP Code</a>
-                <ul><li>For the Development of CakePHP Git repository, Downloads</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="https://github.com/FriendsOfCake/awesome-cakephp">CakePHP Awesome List</a>
-                <ul><li>A curated list of amazingly awesome CakePHP plugins, resources and shiny things.</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="https://www.cakephp.org">CakePHP</a>
-                <ul><li>The Rapid Development Framework</li></ul>
-            </li>
-        </ul>
-    </div>
-    <div class="columns large-4">
-        <i class="icon training">s</i>
-        <h3>Training and Certification</h3>
-        <ul>
-            <li class="bullet cutlery">
-                <a href="https://cakefoundation.org/">Cake Software Foundation</a>
-                <ul><li>Promoting development related to CakePHP</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="https://training.cakephp.org/">CakePHP Training</a>
-                <ul><li>Learn to use the CakePHP framework</li></ul>
-            </li>
-            <li class="bullet cutlery">
-                <a href="https://certification.cakephp.org/">CakePHP Certification</a>
-                <ul><li>Become a certified CakePHP developer</li></ul>
-            </li>
-        </ul>
-    </div>
-</div>
-
-</body>
-</html>
+</section>

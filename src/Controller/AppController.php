@@ -28,27 +28,56 @@ use Cake\Event\Event;
 class AppController extends Controller
 {
 
-    /**
-     * Initialization hook method.
-     *
-     * Use this method to add common initialization code like loading components.
-     *
-     * e.g. `$this->loadComponent('Security');`
-     *
-     * @return void
+  /**
+   * Initialization hook method.
+   *
+   * Use this method to add common initialization code like loading components.
+   *
+   * e.g. `$this->loadComponent('Security');`
+   *
+   * @return void
+   */
+  public function initialize()
+  {
+    parent::initialize();
+
+    $this->loadComponent('RequestHandler');
+    $this->loadComponent('Flash');
+    $this->loadComponent('Auth', [
+      'loginRedirect' => [
+        'controller' => 'Matches',
+        'action' => 'index'
+      ],
+      'logoutRedirect' => [
+        'controller' => 'Pages',
+        'action' => 'display',
+        'home'
+      ],
+      'unauthorizedRedirect' => [
+        'controller' => 'Pages',
+        'action' => 'display',
+        'home'
+      ]
+    ]);
+
+    /*
+     * Enable the following components for recommended CakePHP security settings.
+     * see https://book.cakephp.org/3.0/en/controllers/components/security.html
      */
-    public function initialize()
-    {
-        parent::initialize();
+    $this->loadComponent('Security');
+    $this->loadComponent('Csrf');
 
-        $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');
-
-        /*
-         * Enable the following components for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
-        //$this->loadComponent('Csrf');
+    if ($user = $this->Auth->user()){
+      $this->set('is_loggedin', true);
+      $this->set('msg_num', 0);
+    } else {
+      $this->set('is_loggedin', false);
     }
+  } // initialize()
+
+  public function beforeFilter(Event $event)
+  {
+    $this->Auth->allow(['display']);
+  }
+  
 }
