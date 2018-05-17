@@ -113,8 +113,10 @@ class UsersTable extends Table {
 
   public function findAuth(Query $query, array $options){
     $query
-      ->select(['id', 'email', 'password'])
-      ->where(['status' => 'Active']);
+      ->select(['id', 'email', 'password', 'status', 'timezone'])
+      ->where([      
+        'OR' => ['status' => 'Active', "status = 'Inactive'"]
+      ]);
     return $query;
   } // findAuth()
   
@@ -281,9 +283,9 @@ select user_id, email
     $sql = '
 insert
   into user_deletes (user_id, password)
-values (:user_id, :has)';
+values (:user_id, :pass)';
     $bind = array(':user_id' => $user_id,
-                  ':hash'    => $hash);
+                  ':pass'    => $pass);
     if ($conn->execute($sql, $bind)){
       return $pass;
     }
@@ -374,7 +376,7 @@ update users
    * @param Integer $user_id
    * @return Boolean
    */
-  public function delete($user_id){
+  public function deleteUser($user_id){
     if (empty($user_id) || !is_numeric($user_id)){
       return false;
     }
@@ -387,7 +389,11 @@ update users
  where id = :user_id
    and status in ('Active', 'Inactive')";
     $bind = array(':user_id' => $user_id);
-    return $conn->execute($sql, $bind);
+    if ($conn->execute($sql, $bind)){
+      $this->deactivateDelete($user_id);
+      return true;
+    }
+    return false;
   } // delete()
   
   /**
@@ -578,5 +584,6 @@ from ($sql) as mtch";
     $ret = $conn->execute($sql, $bind)->fetch('assoc');
     return $ret;
   } // getMatchScore()
+
 }
 ?>

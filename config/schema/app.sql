@@ -814,7 +814,7 @@ create table user_blocks (
 
 create table messages (
   id                  int auto_increment,
-  thread_id           int,
+  thread_id           varchar(50),
   from_user_id        int,
   to_user_id          int,
   message             text,
@@ -858,3 +858,29 @@ create table user_deletes (
              references users (id) on delete cascade
 ) character set utf8mb4;
 
+create table user_logins (
+  id             int auto_increment,
+  user_id        int,
+  email          varchar(255),
+  login_date     timestamp default current_timestamp,
+  is_successful  enum('0', '1') default '0',
+  constraint user_logins_pk
+             primary key (id),
+  constraint user_logins_uid_fk
+             foreign key (user_id)
+             references users (id)
+) character set utf8mb4;
+
+create table user_clicks (
+  id              int auto_increment,
+  user_id         int,
+  click_date      timestamp default current_timestamp,
+  uri             varchar(255),
+  query_string    varchar(255),
+  referer         varchar(255),
+  constraint user_clicks_pk
+             primary key (id),
+  constraint user_clicks_uid_fk
+             foreign key (user_id)
+             references users (id)
+) character set utf8mb4;

@@ -1,7 +1,8 @@
 <?php
+$this->Form->unlockField('status');
 $this->assign('title', 'Update Profile Status');
 $this->assign('css', $this->Html->css('myprofile.css'));
-$this->assign('js', $this->Html->script('status.js'));
+$this->assign('script', $this->Html->script('status.js?v=1'));
 ?>
 <h1>Update Profile Status</h1>
 
@@ -9,14 +10,14 @@ $this->assign('js', $this->Html->script('status.js'));
   <div class="col-md-2 profile-nav">
     <?php echo $this->element('myprofilenav'); ?>
   </div>
-  <div class="col-md-offset-2 col-md-4">      
+  <div class="col-md-offset-2 col-md-4" id="status-form">      
     <?php echo $this->Flash->render(); ?>
 
    <?php echo $this->Form->create(); ?>
    <div class="form-group">
-     <input type="Submit" value="Activate"
+     <input type="button" value="Activate"
             class="form-control btn btn-primary" <?php echo $status == 'Active'
-            ? 'disabled' : '' ?>/>
+            ? 'disabled' : '' ?> data-toggle="modal" data-target="#activate-modal"/>
      <div class="help-block"><?php echo $status == 'Active' ? 'Your current
      profile status is active.' : '' ?></div>
    </div>
@@ -48,47 +49,26 @@ $this->assign('js', $this->Html->script('status.js'));
   </div><!-- .col-md-10 -->
 </div><!-- .row -->
 
-<div class="modal" tabindex="-1" role="dialog" id="deactivate-modal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Confirm Deactivation</h5>
-        <button type="button" class="close" data-dismiss="modal"
-                aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div><!-- .modal-header -->
-      <div class="modal-body">
-        <p>Are you sure you want to deactivate your profile?</p>
-      </div><!-- .modal-body -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Yes, Deactivate!</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      </div><!-- .modal-footer -->
-    </div><!-- .modal-content -->
-  </div><!-- .modal-dialog -->
-</div><!-- .modal -->
+<?php echo $this->element('modal', [
+'modal_id'    => 'activate-modal',
+'modal_title' => 'Confirm Activation',
+'modal_body'  => '<p>Are you sure you want to activate your profile?</p>',
+'modal_action'=> 'Yay, Activate!'
+]); ?>
 
-<div class="modal" tabindex="-1" role="dialog" id="delete-modal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Confirm Deletion</h5>
-        <button type="button" class="close" data-dismiss="modal"
-                aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div><!-- .modal-header -->
-      <div class="modal-body">
-        <p>Are you sure you want to delete your profile?</p>
+<?php echo $this->element('modal', [
+'modal_id'    => 'deactivate-modal',
+'modal_title' => 'Confirm Deactivation',
+'modal_body'  => '<p>Are you sure you want to deactivate your profile?</p>',
+'modal_action'=> 'Yes, Deactivate!'
+]); ?>
+
+<?php echo $this->element('modal', [
+'modal_id'    => 'delete-modal',
+'modal_title' => 'Confirm Deletion',
+'modal_body'  => '<p>Are you sure you want to delete your profile?</p>
         <p>This action is not reversible. Once the request is complete, you
         will be logged out of the site and will not be able to access your
-        profile again.</p>
-      </div><!-- .modal-body -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Yes, Delete! Bye!</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      </div><!-- .modal-footer -->
-    </div><!-- .modal-content -->
-  </div><!-- .modal-dialog -->
-</div><!-- .modal -->
+        profile again.</p>',
+'modal_action'=> 'Yes, Delete! Bye!'
+]); ?>

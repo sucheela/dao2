@@ -27,6 +27,7 @@
     <?= $this->Html->css('bootstrap.min.css') ?>
     <?= $this->Html->css('font-awesome.min.css') ?>
     <?= $this->Html->css('global.css') ?>
+    <?= $this->Html->css('message.css') ?>
     <?= $this->Html->css('home.css') ?>
     
     <?= $this->fetch('css') ?>
@@ -76,7 +77,7 @@
                 <li><a href="/matches">My Matches</a></li>
                 <li><a href="/favorites">My Favorites</a></li>
                 <li><a href="/messages">My Messages (<?php echo $msg_num; ?>)</a></li>
-                <li><a href="/visitors">Recent Vistitors</a></li>
+                <li><a href="/visitors">Recent Visitors</a></li>
                 <li><a href="/blocks">My Black List</a></li>
                 <li><a href="/users/edit">My Profile</a></li>
               </ul>
@@ -132,6 +133,7 @@
   <?= $this->Html->script('jquery.min.js') ?>
   <?= $this->Html->script('bootstrap.min.js') ?>
   <?= $this->Html->script('global.js') ?>
+  <?= $this->Html->script('message.js') ?>
   <?= $this->fetch('script') ?>
 </body>
 </html>

@@ -34,12 +34,28 @@ class UsersController extends AppController {
   } // beforeFilter()
 
   public function login(){
-    if ($this->request->is('post')) {
+    if ($this->request->is('post')) {      
       $user = $this->Auth->identify();
+
+      // prepare to record the login
+        $logTable = TableRegistry::get('user_logins');
+        $log = $logTable->newEntity();
+        $log->email = $this->request->getData('email');
+      
       if ($user) {
         $this->Auth->setUser($user);
+        
+        // record good login
+        $log->user_id = $this->Auth->user('id');
+        $log->is_successful = '1';
+        $logTable->save($log);
+        
         return $this->redirect($this->Auth->redirectUrl());
       }
+      
+      // record bad login
+      $log->is_successful = '0';
+      $logTable->save($log);
       $this->Flash->error('Invalid username or password. Please try again. If you have a Google or Facebook account, you may login using Facebook login or Google login. If you are a new user, pleaes register using the link below.');
     }
   } // login()
@@ -582,6 +598,7 @@ class UsersController extends AppController {
             throw new Exception('Sorry. You cannot re-activate a deleted profile.');
           }
           if ($this->Users->activate($user->id)){
+            $user->status = 'Active';
             $this->Flash->success('Your profile has been re-activated.');
           } else {
             throw new Exception('There was an error reactivating your profile. Please try again.');
@@ -592,6 +609,9 @@ class UsersController extends AppController {
             throw new Exception('Sorry. You cannot deactivate a profile that is not currently active.');
           }
           if ($this->Users->deactivate($user->id)){
+            // update Auth
+            $this->Auth->status = 'Inactive';
+            $user->status = 'Inactive';
             $this->Flash->success('Your profile has been deactivated.');
           } else {
             throw new Exception('There was an error deactivating your profile. Please try again.');
@@ -661,12 +681,17 @@ class UsersController extends AppController {
       if ($user->status == 'Deleted'){
         throw new Exception('This profile has already been deleted. Please tell us how you managed to get here. Thanks!');
       }
-      if ($this->Users->delete($user_id)){
-        $this->Flash->success('');
+      if ($this->Users->deleteUser($user_id)){
+        $is_deleted = true;
+        $this->Auth->status = 'Deleted';
+        $this->Flash->success('The profile has been deleted.');
+        header('Refresh: 10; URL: /users/logout');
       }
     } catch (Exception $e){
+      $is_deleted = false;
       $this->Flash->error($e->getMessage());
     }
+    $this->set('is_deleted', $is_deleted);
   } // delete()
   
   public function view($id=null){
@@ -688,6 +713,12 @@ class UsersController extends AppController {
     if ($user->status == 'Inactive' ||
         $user->status == 'Deleted'){
       $this->render('404');
+      return;
+    }
+
+    // if the viewing user is deactivated or deleted, 401
+    if ($this->Auth->user('status') != 'Active'){
+      $this->render('401');
       return;
     }
 

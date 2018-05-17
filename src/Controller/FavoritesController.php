@@ -57,6 +57,11 @@ class FavoritesController extends AppController {
       if (empty($_GET['fav_user_id'])){
         throw new Exception('401');
       }
+
+      // only active users can add
+      if ($this->Auth->user('status') != 'Active'){
+        throw new Exception('405');
+      }      
             
       $fav_user_id = Security::decrypt(base64_decode($_GET['fav_user_id']),
                                        ENCRYPT_KEY);
@@ -105,6 +110,11 @@ class FavoritesController extends AppController {
       if (empty($_GET['fav_user_id'])){
         throw new Exception('401');
       }
+
+      // only active users can add
+      if ($this->Auth->user('status') != 'Active'){
+        throw new Exception('405');
+      }      
             
       $fav_user_id = Security::decrypt(base64_decode($_GET['fav_user_id']),
                                        ENCRYPT_KEY);

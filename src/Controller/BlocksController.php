@@ -52,6 +52,11 @@ class BlocksController extends AppController {
         throw new Exception('401');
       }
 
+      // only active users can add
+      if ($this->Auth->user('status') != 'Active'){
+        throw new Exception('405');
+      }
+
       $blocked_user_id = Security::decrypt(base64_decode($_GET['blocked_user_id']),
                                            ENCRYPT_KEY);
       
@@ -99,6 +104,11 @@ class BlocksController extends AppController {
     try {
       if (empty($_GET['blocked_user_id'])){
         throw new Exception('401');
+      }
+
+      // only active users can add
+      if ($this->Auth->user('status') != 'Active'){
+        throw new Exception('405');
       }
 
       $blocked_user_id = Security::decrypt(base64_decode($_GET['blocked_user_id']),

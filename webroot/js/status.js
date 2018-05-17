@@ -1,15 +1,21 @@
 $(function(){
 
-  $('#deactivate-modal .btn-primary').click(function(e){
+  $('#activate-modal .modal-footer .btn-primary').click(function(e){
     e.preventDefault();
-    $('#status').val('Inactive');
-    $('#status').closest('form').submit();
+    $('#status').val('Active');
+    $('#status-form').find('form').submit();
   });
 
-  $('#delete-modal .btn-primary').click(function(e){
+  $('#deactivate-modal .modal-footer .btn-primary').click(function(e){
+    e.preventDefault();
+    $('#status').val('Inactive');
+    $('#status-form').find('form').submit();
+  });
+
+  $('#delete-modal .modal-footer .btn-primary').click(function(e){
     e.preventDefault();
     $('#status').val('Deleted');
-    $('#status').closest('form').submit();
+    $('#status-form').find('form').submit();
   });
 
 });

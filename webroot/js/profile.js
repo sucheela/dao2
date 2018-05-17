@@ -28,6 +28,9 @@ $(function(){
         case '403':
           msg = 'Sorry, you can\'t block yourself. :(';
           break;
+        case '405':
+          msg = 'Sorry, you must activate your profile first.';
+          break;
         case '409':
           msg = 'You had already blocked ' + user_name + '.';
           break;
@@ -100,6 +103,9 @@ $(function(){
         case '401':
         case '404':
           msg = 'Blocked user not found.';
+          break;
+        case '405':
+          msg = 'Sorry, you must activate your profile first.';
           break;
         case '200':
           msg = 'The user, ' + user_name + ', has been removed from your Black List.';
@@ -180,6 +186,9 @@ $(function(){
         case '403':
           msg = 'Sorry, you can\'t favorite yourself. :(';
           break;
+        case '405':
+          msg = 'Sorry, you must activate your profile first.';
+          break;
         case '409':
           msg = 'You had already added ' + user_name + ' to your favorites.';
           break;
@@ -252,6 +261,9 @@ $(function(){
         case '401':
         case '404':
           msg = 'Favorite user not found.';
+          break;
+        case '405':
+          msg = 'Sorry, you must activate your profile first.';
           break;
         case '200':
           msg = user_name + ', has been removed from your Favorite List.';

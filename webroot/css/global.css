@@ -108,6 +108,10 @@ section p {
   text-align: center;
 }
 
+.modal-header .close {
+  margin-top: -40px;
+}
+
 
 /* ----------------------------------------------
    header

@@ -7,27 +7,7 @@ if (isset($last_visited_date)){
   // Recent Visitors page has this var
   $last_visited = new DateTime($last_visited_date);
   $now = new DateTime();
-  $interval = $last_visited->diff($now);
-  $last_visited_mins = $interval->format('%i');
-  $last_visited_hours = $interval->format('%h');
-  $last_visited_days = $interval->format('%d');
-  $last_visited_months = $interval->format('%m');
-  $last_visited_string = '';
-
-  switch (true){
-  case $last_visited_months > 0:
-    $last_visited_string = $last_visited_months . " momths ago";
-    break;
-  case $last_visited_days > 0:
-    $last_visited_string = $last_visited_days . " days ago";
-    break;
-  case $last_visited_hours > 0:
-    $last_visited_string = $last_visited_hours . " hours ago";
-    break;
-  case $last_visited_mins > 0:
-    $last_visited_string = $last_visited_mins . " minutes ago";
-    break;
-  }
+  $last_visited_string = $this->Dao->relativeTime($last_visited, $now);
 } // end if isset($last_visited_date)
 ?>
 <li>
@@ -66,7 +46,7 @@ if (isset($last_visited_date)){
       <?php } else { ?>
     <a href="/favorites/add" class="favorite" data-toggle="tooltip" title="Save to my favorites."><span class="fa fa-heart"></span></a>
       <?php } ?>
-    <a href="/messages/send" class="message" data-toggle="tooltip" title="Send a message."><span class="fa fa-envelope"></span></a>
+    <a href="#" class="message" data-toggle="tooltip" title="Send a message."><span class="fa fa-envelope"></span></a>
     <a href="/blocks/add" class="block" data-toggle="tooltip" title="Do not show me this profile again."><span class="fa fa-ban"></span></a>
     <?php } else { // else if on My Black List page ?>
     <a href="/blocks/delete" class="not-block" data-toggle="tooltip" title="Remove from My Black List"><span class="fa fa-circle-o"></span></a>

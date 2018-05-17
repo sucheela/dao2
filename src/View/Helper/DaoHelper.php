@@ -125,5 +125,42 @@ class DaoHelper extends Helper {
     return $ret;
   } // getAgeRangeOptions()
 
+  public function relativeTime($date1, $date2){
+    $interval = $date1->diff($date2);
+    $mins = $interval->format('%i');
+    $hours = $interval->format('%h');
+    $days = $interval->format('%d');
+    $months = $interval->format('%m');
+    
+    $ret = '';
+    switch (true){
+    case $months == 1:
+      $ret = '1 month ago';
+      break;
+    case $months > 1:
+      $ret = $months . ' months ago';
+      break;
+    case $days == 1:
+      $ret = '1 day ago';
+      break;
+    case $days > 1:
+      $ret = $days . ' days ago';
+      break;
+    case $hours == 1:
+      $ret = '1 hour ago';
+      break;
+    case $hours > 1:
+      $ret = $hours . ' hours ago';
+      break;
+    case $minutes == 1:
+      $ret = 'just now';
+      break;
+    case $minutes > 1:
+      $ret = $minutes . ' minutes ago';
+      break;
+    }
+    return $ret;
+  } // relativeTime()
+
 }
 ?>

@@ -10,7 +10,7 @@ class UserVisitorsTable extends Table {
   const LIMIT = 8;
   
   /**
-   * Get favorites and their scoring for the $user_id
+   * Get visitors and their scoring for the $user_id
    * @param Integer $user_id
    * @param Integer $page_num
    * @return Array
@@ -83,7 +83,10 @@ not exists (
      and u.id = user_blocks.blocked_user_id)
 -- the matches are still active
 and u.status = 'Active'
-and vit.user_id = :user_id";
+and vit.user_id = :user_id
+-- don't count me visiting myself
+and vit.visitor_user_id != :user_id
+";
 
     $sql = "select mtch.*,
  mtch.month_score + mtch.year_score + mtch.hour_score + mtch.day_score as total_score

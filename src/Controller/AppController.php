@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -70,6 +71,16 @@ class AppController extends Controller
     if ($user = $this->Auth->user()){
       $this->set('is_loggedin', true);
       $this->set('msg_num', 0);
+
+      // record click
+      $clickTab = TableRegistry::get('user_clicks');
+      $click = $clickTab->newEntity();
+      $click->user_id = $this->Auth->user('id');
+      $click->uri = $_SERVER['REQUEST_URI'];
+      $click->query_string = $_SERVER['QUERY_STRING'];
+      $click->referer = isset($_SERVER['HTTP_REFERER'])
+                      ? $_SERVER['HTTP_REFERER'] : null;
+      $clickTab->save($click);
     } else {
       $this->set('is_loggedin', false);
     }
@@ -77,7 +88,7 @@ class AppController extends Controller
 
   public function beforeFilter(Event $event)
   {
-    $this->Auth->allow(['display']);
+    $this->Auth->allow(['display']);    
   }
   
 }
