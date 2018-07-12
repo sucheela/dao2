@@ -15,17 +15,10 @@ $(function(){
   });
 
   // attach initiating message event
-  $('.matches ul, .profile').on('click', 'a.message', function(e){
+  $('.matches ul, .profile, .thread').on('click', 'a.message', function(e){
     e.preventDefault();
     var user_id = $(this).closest('div.action').data('user_id');
-    var name = '';
-    if ($(this).closest('li').find('div.title>span.name').length){
-      // in matches, favorites, recent visitors pages
-      name = $(this).closest('li').find('div.title>span.name').length.html();
-    } else {
-      // in profile page
-      name = $(this).closest('.profile').find('h1.name').html();
-    }
+    var name = $(this).closest('div.action').data('user_name');
     // get thread id
     $.ajax({
       url : '/messages/thread',
@@ -217,8 +210,7 @@ $(function(){
   //displays the popups. Displays based on the maximum number of popups that can be displayed on the current viewport width
   function display_popups()
   {
-    var right = 15;
-    
+    var right = 10;    
     var iii = 0;
     for(iii; iii < total_popups; iii++)
     {
@@ -230,12 +222,13 @@ $(function(){
         $(element).show();
       }
     }
-    
+    /*
     for(var jjj = iii; jjj < popups.length; jjj++)
     {
       var element = $('[data-thread_id="'+popups[jjj]+'"]');
       $(element).hide();
     }
+    */
   }
 
   //creates markup for a new popup. Adds the id to popups array.
@@ -301,10 +294,14 @@ $(function(){
 //    }
 //    else
 //    {
-      width = width - 15;
+      width = width - 10;
       //320 is width of a single popup box
       total_popups = parseInt(width/320);
 //    }
+    
+    if (total_popups < 1){
+      total_popups = 1;
+    }
     
     display_popups();
     

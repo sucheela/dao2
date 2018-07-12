@@ -76,7 +76,7 @@
               <ul class="dropdown-menu">
                 <li><a href="/matches">My Matches</a></li>
                 <li><a href="/favorites">My Favorites</a></li>
-                <li><a href="/messages">My Messages (<?php echo $msg_num; ?>)</a></li>
+                <li><a href="/messages">My Messages (<span class="unopened-num"><?php echo $msg_num; ?></span>)</a></li>
                 <li><a href="/visitors">Recent Visitors</a></li>
                 <li><a href="/blocks">My Black List</a></li>
                 <li><a href="/users/edit">My Profile</a></li>

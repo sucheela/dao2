@@ -6,7 +6,7 @@ $this->assign('script', $this->Html->script([
   'load-more.js',
   'profile.js?v=5']));
 ?>
-<div class="matches blocks">
+<div class="matches blocks lazy-load">
   <h1>My Black List</h1>
   <h4>Here are profiles that you do not want to see</h4>
   

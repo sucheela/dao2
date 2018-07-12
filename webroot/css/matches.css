@@ -61,12 +61,10 @@
 }
 
 @media (max-width: 480px){
-  .matches ul li .score .stars {
-    font-size: 0.7em;
+  .matches ul li {
+    width: 90%;
   }
-  .matches ul li .action {
-    font-size: 0.8em;
-  }
+  
 }
 
 .matches img {

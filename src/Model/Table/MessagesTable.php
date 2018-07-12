@@ -14,6 +14,8 @@ class MessagesTable extends Table {
   const NEW_THREAD_INTERVAL = 60; // start new thread if no activity in 60 minutes
   const REFRESH_INTERVAL = 10;    // check for new messages every 10 seconds
   const THREAD_LIMIT = 20;        // # of threads per page to display on Messages page
+  const MESSAGE_LIMIT = 20;       // # of messages per page to display on Message view
+  const NEW_MSG = '{{{ new message }}}';
 
   /**
    * @param Integer $from_user_id
@@ -31,10 +33,11 @@ class MessagesTable extends Table {
     $sql = "
 insert
   into messages (thread_id, from_user_id, to_user_id, message)
-values (:thread_id, :from_user_id, :to_user_id, '{{{ new message }}}')";
+values (:thread_id, :from_user_id, :to_user_id, :message)";
     $bind = array(':thread_id'    => $thread_id,
                   ':from_user_id' => $from_user_id,
-                  ':to_user_id'   => $to_user_id);
+                  ':to_user_id'   => $to_user_id,
+                  ':message'      => self::NEW_MSG);
     if ($conn->execute($sql, $bind)){
       return $thread_id;
     }
@@ -66,7 +69,7 @@ select thread_id,
        :message
   from messages
  where thread_id = :thread_id
-   and message = '{{{ new message }}}'
+   and message = :new_msg
    and (from_user_id = :sender_user_id or
         to_user_id = :sender_user_id)
    and not exists (
@@ -77,7 +80,8 @@ select thread_id,
             and test.id < messages.id')";
     $bind = array(':sender_user_id' => $sender_user_id,
                   ':message'        => $message,
-                  ':thread_id'      => $thread_id);
+                  ':thread_id'      => $thread_id,
+                  ':new_msg'        => self::NEW_MSG);
     $conn = ConnectionManager::get('default');
     return $conn->execute($sql, $bind);
   } // addMessage();
@@ -109,10 +113,11 @@ select case
           where thread_id = :thread_id
             and (to_user_id = :sender_user_id or
                  from_user_id = :sender_user_id)
-            and message = '{{{ new message }}}'
+            and message = :message
            limit 1)";
     $bind = array(':thread_id' => $thread_id,
-                  ':sender_user_id' => $sender_user_id);
+                  ':sender_user_id' => $sender_user_id,
+                  ':message' => self::NEW_MSG);
     $conn = ConnectionManager::get('default');
     $row = $conn->execute($sql, $bind)->fetch('assoc');
     if (!empty($row) && $row['is_online']){
@@ -155,30 +160,33 @@ select thread_id
   } // getThreadId()
 
   /**
-   * Get messages sent to $to_user_id that hasn't been seen.
-   * If $is_interval, check for the new messages in the last 10 seconds.
-   * Otherwise, get all un-opened.
+   * Get messages sent to $to_user_id that hasn't been opened.
    * @param Integer $to_user_id
-   * @return Array
+   * @return Integer
    */
   public function getNewMessageCount($to_user_id){
     if (empty($to_user_id) || !is_numeric($to_user_id)){
-      return array();
+      return 0;
     }
     $sql = "
-select messages.thread_id,
-       messages.from_user_id,
-       users.name from_user_name   
-  from messages 
-       inner join users on messages.from_user_id = users.id
- where messages.to_user_id = :to_user_id
+select count(distinct from_user_id) unopened_num
+  from messages
+ where to_user_id = :to_user_id
    and is_opened = '0'
- group by messages.thread_id,
-          messages.from_user_id,
-          users.name";
-    $bind = array(':to_user_id' => $to_user_id);
-    $conn = ConnectionManager::get('default');    
-    return $conn->execute($sql, $bind)->fetchAll('assoc');
+   and message != :message
+   and not exists (
+         select 'x'
+           from user_blocks
+          where user_blocks.user_id = :to_user_id
+            and user_blocks.blocked_user_id = messages.from_user_id)";
+    $bind = array(':to_user_id' => $to_user_id,
+                  ':message'    => self::NEW_MSG);
+    $conn = ConnectionManager::get('default');
+    $count = 0;
+    if ($row =  $conn->execute($sql, $bind)->fetch('assoc')){
+      $count = $row['unopened_num'];
+    }
+    return $count;
   } // getNewMessageCount()
 
   /**
@@ -195,70 +203,131 @@ select messages.id,
        messages.thread_id,
        messages.from_user_id,
        from_u.name from_user_name,
+       from_u.month_branch_id from_month_branch_id,
        messages.to_user_id,
        to_u.name to_user_name,
+       to_u.month_branch_id to_month_branch_id,
        messages.message,
        messages.created_date,
        messages.is_opened
   from messages
-       inner join users from_u on messages.from_user_id = from_u.id
-       inner join users to_u on messages.to_user_id = to_u.id
+       inner join users from_u on messages.from_user_id = from_u.id and from_u.status != 'Deleted'
+       inner join users to_u on messages.to_user_id = to_u.id and to_u.status != 'Deleted'
  where messages.thread_id = :thread_id
+   and messages.message != :message
  order by messages.created_date";
-    $bind = array(':thread_id' => $thread_id);
+    $bind = array(':thread_id' => $thread_id,
+                  ':message'   => self::NEW_MSG);
     $conn = ConnectionManager::get('default');    
     return $conn->execute($sql, $bind)->fetchAll('assoc');
   } // getMessagesByThread()
 
   /**
-   * Get all the threads sent or received by this user.
+   * @param String $thread_id
+   * @param Integer $from_user_id
+   * @param Integer $to_user_id
+   * @return String|NULL
+   */
+  public function getPreviousThreadId($thread_id, $from_user_id, $to_user_id){
+    if (empty($thread_id) ||
+        empty($from_user_id) || !is_numeric($from_user_id) ||
+        empty($to_user_id) || !is_numeric($to_user_id)){
+      return null;
+    }
+    $sql = "
+select m.thread_id
+  from messages m
+ where ((m.from_user_id = :from_user_id and m.to_user_id = :to_user_id) or
+        (m.from_user_id = :to_user_id and m.to_user_id = :from_user_id))
+   and m.thread_id != :thread_id
+   and m.message != :new_msg
+   and m.created_date < (select max(created_date) from messages where thread_id = :thread_id and message = :new_msg)
+ order by created_date
+ limit 1";
+    $bind = array(':thread_id' => $thread_id,
+                  ':from_user_id' => $from_user_id,
+                  ':to_user_id' => $to_user_id,
+                  ':new_msg' => self::NEW_MSG);
+    $conn = ConnectionManager::get('default');    
+    if ($row = $conn->execute($sql, $bind)->fetch('assoc')){
+      return $row['thread_id'];
+    }
+    return null;
+  } // getPreviousThreadId()
+
+  /**
+   * Get all the messages received by the user, grouped by the sender.
    * @param Integer $user_id
    * @param Integer $page
    * @return Array
    */
-  public function getThreadsByUser($user_id, $page=1){
+  public function getUserMessages($user_id, $page=1){
     if (empty($user_id) || !is_numeric($user_id)){
       return array();
     }
     $sql = "
-select messages.id,
+select last_msg.last_created_date,
+       last_msg.has_unopened,
+       u.id           user_id,
+       u.name         user_name,
+       u.birth_date,
+       u.zipcode,
+       u.country_code,
+       u.address,
+       u.month_branch_id,  
+       user_images.id        image_id,
+       user_images.file_name image_file_name,
        messages.thread_id,
-       messages.from_user_id,
-       from_u.name from_user_name,
-       messages.to_user_id,
-       to_u.name to_user_name,
        messages.message,
-       messages.created_date,
-       messages.is_opened,
-       threads.has_unopened,
-       threads.last_created_date
+       case
+         when messages.from_user_id = u.id then 1
+         else 0
+       end msg_is_yours
   from (
-  select thread_id,
-         sum(
+    select max(id) last_message_id,
+           max(created_date) last_created_date,
            case 
-             when to_user_id = :user_id and is_opened = '0' then 1
-             else 0
-         ) has_unopened,
-         max(created_date) last_created_date,
-         max(id) last_message_id
-    from messages
-   where from_user_id = :user_id
-      or to_user_id = :user_id
-   group by thread_id
-) as threads 
-       inner join messages on threads.last_message_id = messages.id
-       inner join users from_u on messages.from_user_id = from_u.id
-       inner join users to_u on messages.to_user_id = to_u.id
- where messages.from_user_id = :user_id
-    or messages.to_user_id = :user_id
- order by threads.has_unopened desc,
-          threads.last_created_date desc,
-          threads.thread_id asc";
-    $bind = array(':user_id' => $user_id);
-    $conn = ConnectionManager::get('default');    
-    return $conn->execute($sql, $bind)->fetchAll('assoc');
-  } // getThreadByUser()
+             when from_user_id = :user_id then to_user_id
+             else from_user_id
+           end your_user_id,
+           sum(
+             case 
+               when to_user_id = :user_id and is_opened = '0' then 1
+               else 0
+             end
+           ) has_unopened
+      from messages
+     where (from_user_id = :user_id or
+            to_user_id = :user_id)
+       and message != :message
+     group by your_user_id
+       ) as last_msg
+       inner join messages on last_msg.last_message_id = messages.id
+       inner join users u on last_msg.your_user_id = u.id and u.status != 'Deleted'
+       left outer join user_images on last_msg.your_user_id = user_images.user_id
+         and user_images.is_default = '1' and user_images.is_hidden = '0'
+ -- this sender hasn't been blocked by me
+ where not exists (
+         select 'x'
+           from user_blocks
+          where last_msg.your_user_id = user_blocks.blocked_user_id
+            and user_blocks.user_id = :user_id)
+ order by last_msg.has_unopened desc,
+          last_msg.last_created_date desc,
+          u.name";
 
+    if (is_numeric($page) && $page > 0){
+      $skip = ($page-1) * self::THREAD_LIMIT;
+      $sql .= "
+limit " . self::THREAD_LIMIT . " offset $skip";
+    }
+    $bind = array(':user_id' => $user_id,
+                  ':message' => self::NEW_MSG);
+    
+    $conn = ConnectionManager::get('default');    
+    return $conn->execute($sql, $bind)->fetchAll('assoc');    
+  } // getUserMessages()
+  
   /**
    * Mark the message as opened.
    * @param String $thread_id
@@ -282,6 +351,29 @@ update messages
   } // open()
 
   /**
+   * Mark all the messages in the thread to the user_id as opened.
+   * @param String $thread_id
+   * @param Integer $user_id
+   * @return Boolean
+   */
+  public function openAll($thread_id, $user_id){
+    if (empty($thread_id) ||
+        empty($user_id) || !is_numeric($user_id)){
+      return false;
+    }
+    $sql = "
+update messages
+   set is_opened = '1'
+ where thread_id = :thread_id
+   and to_user_id = :user_id
+   and is_opened = '0'";
+    $bind = array(':thread_id' => $thread_id,
+                  ':user_id'   => $user_id);
+    $conn = ConnectionManager::get('default');
+    return $conn->execute($sql, $bind);
+  } // openAll()
+  
+  /**
    * Get unopened messages sent to this user in the past 10 seconds.
    * @param Integer $user_id
    * @param Object $timezone the user's default timezone
@@ -303,6 +395,12 @@ select m.id,
  where m.to_user_id = :user_id
    and is_opened = '0'
    and timestampdiff(SECOND, m.created_date, current_timestamp) between 0 and " . self::REFRESH_INTERVAL . "
+   -- this sender wasn't blocked by be
+   and not exists (
+         select 'x'
+           from user_blocks
+          where user_blocks.user_id = :user_id
+            and user_blocks.blocked_user_id = m.from_user_id)
   order by m.from_user_id, m.thread_id, m.created_date";
     $bind = array(':user_id' => $user_id);
     $conn = ConnectionManager::get('default');

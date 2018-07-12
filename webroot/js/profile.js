@@ -1,16 +1,10 @@
 $(function(){
 
   // blocking users
-  $('.matches ul, .profile').on('click', 'a.block', function(e){
+  $('.matches ul, .profile, .thread').on('click', 'a.block', function(e){
     e.preventDefault();
     var user_id = $(this).closest('.action').data('user_id');
-    var user_name, li;
-    if ($('.profile h1.name').length == 1){
-      user_name = $('.profile h1.name').html();
-    } else {
-      li = $(this).closest('li');
-      user_name = $(li).find('div.title>span.name').html();
-    }
+    var user_name = $(this).closest('.action').data('user_name');
     var anchor = this;
     var msg = '';
     $.ajax({
@@ -80,16 +74,10 @@ $(function(){
   });
 
   // unblocking user
-  $('.matches, .profile').on('click', 'a.not-block', function(e){
+  $('.matches, .profile, .thread').on('click', 'a.not-block', function(e){
     e.preventDefault();
     var user_id = $(this).closest('.action').data('user_id');
-    var user_name, li;
-    if ($('.profile h1.name').length == 1){
-      user_name = $('.profile h1.name').html();
-    } else {
-      li = $(this).closest('li');
-      user_name = $(li).find('div.title>span.name').html();
-    }
+    var user_name = $(this).closest('.action').data('user_name');
     var anchor = this;
     var msg = '';
     $.ajax({
@@ -159,16 +147,10 @@ $(function(){
   
 
   // favortie users
-  $('.matches, .profile').on('click', 'a.favorite', function(e){
+  $('.matches, .profile, .thread').on('click', 'a.favorite', function(e){
     e.preventDefault();
     var user_id = $(this).closest('.action').data('user_id');
-    var user_name, li;
-    if ($('.profile h1.name').length == 1){
-      user_name = $('.profile h1.name').html();
-    } else {
-      li = $(this).closest('li');
-      user_name = $(li).find('div.title>span.name').html();
-    }
+    var user_name = $(this).closest('.action').data('user_name');
     var fav_a = this;
     var msg = '';
     $.ajax({
@@ -237,16 +219,10 @@ $(function(){
   });
 
   // remove from favorites
-  $('.matches, .profile').on('click', 'a.not-favorite', function(e){
+  $('.matches, .profile, .thread').on('click', 'a.not-favorite', function(e){
     e.preventDefault();
     var user_id = $(this).closest('.action').data('user_id');
-    var user_name, li;
-    if ($('.profile h1.name').length == 1){
-      user_name = $('.profile h1.name').html();
-    } else {
-      li = $(this).closest('li');
-      user_name = $(li).find('div.title>span.name').html();
-    }
+    var user_name = $(this).closest('.action').data('user_name');
     var anchor = this;
     var msg = '';
     

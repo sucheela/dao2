@@ -81,6 +81,11 @@ class AppController extends Controller
       $click->referer = isset($_SERVER['HTTP_REFERER'])
                       ? $_SERVER['HTTP_REFERER'] : null;
       $clickTab->save($click);
+
+      // get the number of unopened emails
+      $msgTab = TableRegistry::get('messages');
+      $msg_num = $msgTab->getNewMessageCount($this->Auth->user('id'));
+      $this->set('msg_num', $msg_num);
     } else {
       $this->set('is_loggedin', false);
     }

@@ -40,6 +40,13 @@ if (empty($images)){
   $img = array_shift($images);
   $hero = '<img src="/images/view/' . $img['file_id'] . '" class="image-responsive"/>';
 }
+
+$action_data = array('encrypted_id'    => $encrypted_id,
+                     'user_name'       => $user->name,
+                     'in_profile_view' => true,
+                     'in_user_block'   => false,
+                     'view_url'        => null,
+                     'is_favorite'     => $is_favorite);
 ?>
 <div class="profile">
   <h1 class="name"><?php echo h($user->name) ?></h1>
@@ -60,20 +67,7 @@ if (empty($images)){
       fa-star-o"></span>', 5-$stars) ?></div>     
       </div><!-- .score -->
       
-      <div class="action" data-user_id="<?php echo $encrypted_id; ?>">
-        <?php if ($is_favorite){ ?>
-        <a href="/favorites/delete" class="not-favorite" data-toggle="tooltip"
-           title="Remove from my favorites."><span class="fa fa-heart-o"></span></a>
-        <?php } else { ?>
-        <a href="/favorites/add" class="favorite" data-toggle="tooltip" title="Save to my favorites."><span class="fa fa-heart"></span></a>
-        <?php } ?>
-        <a href="/messages/send" class="message" data-toggle="tooltip" title="Send a message."><span class="fa fa-envelope"></span></a>
-        <?php if ($is_blocked){ ?>
-        <a href="/blocks/delete" class="not-block" data-toggle="tooltip" title="Remove from Black List"><span class="fa fa-circle-o"></span></a>
-        <?php } else { ?>
-        <a href="/blocks/add" class="block" data-toggle="tooltip" title="Do not show me this profile again."><span class="fa fa-ban"></span></a>
-        <?php } ?>
-      </div><!-- .action -->
+      <?php echo $this->element('actionbox', $action_data); ?>
 
     </div><!-- .profile-images -->
 

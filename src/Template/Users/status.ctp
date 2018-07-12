@@ -13,6 +13,8 @@ $this->assign('script', $this->Html->script('status.js?v=1'));
   <div class="col-md-offset-2 col-md-4" id="status-form">      
     <?php echo $this->Flash->render(); ?>
 
+    <div class="panel">
+      <div class="panel-body">
    <?php echo $this->Form->create(); ?>
    <div class="form-group">
      <input type="button" value="Activate"
@@ -45,7 +47,9 @@ $this->assign('script', $this->Html->script('status.js?v=1'));
    </div>
 
      <?php echo $this->Form->control('status', [ 'type' => 'hidden', 'value' => 'Active' ]); ?>
-   <?php echo $this->Form->end(); ?>
+     <?php echo $this->Form->end(); ?>
+      </div><!-- .panel-body -->
+    </div><!-- .panel -->
   </div><!-- .col-md-10 -->
 </div><!-- .row -->
 

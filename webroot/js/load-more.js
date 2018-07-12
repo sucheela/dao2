@@ -8,7 +8,7 @@ $(function(){
 
     if (has_more && load_below){
       var scroll_y = $(window).scrollTop() + $(window).height();
-      load_below = $('div.matches').offset().top + $('div.matches').height();
+      load_below = $('div.lazy-load').offset().top + $('div.lazy-load').height();
       if (scroll_y >= load_below){
         $('.ajax-loader').show();
         load_below = 0;

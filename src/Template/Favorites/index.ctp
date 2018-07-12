@@ -6,7 +6,7 @@ $this->assign('script', $this->Html->script([
   'load-more.js',
   'profile.js?v=5']));
 ?>
-<div class="matches favorites">
+<div class="matches favorites lazy-load">
   <h1>My Favorites</h1>
   <h4>Here are your favorite profiles</h4>
   

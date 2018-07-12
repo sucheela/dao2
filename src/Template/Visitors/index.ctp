@@ -6,7 +6,7 @@ $this->assign('script', $this->Html->script([
   'load-more.js',
   'profile.js']));
 ?>
-<div class="matches visitors">
+<div class="matches visitors lazy-load">
   <h1>Recent Visitors</h1>
   <h4>Here are users who have viewed your profile</h4>
   

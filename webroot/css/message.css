@@ -1,10 +1,3 @@
-@media only screen and (max-width : 540px)
-{
-  .chat-popup
-  {
-    display: none !important;
-  }
-}
 
 .popup-box
 {

@@ -152,11 +152,11 @@ class DaoHelper extends Helper {
     case $hours > 1:
       $ret = $hours . ' hours ago';
       break;
-    case $minutes == 1:
+    case $mins == 1:
       $ret = 'just now';
       break;
-    case $minutes > 1:
-      $ret = $minutes . ' minutes ago';
+    case $mins > 1:
+      $ret = $mins . ' minutes ago';
       break;
     }
     return $ret;

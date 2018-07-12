@@ -1,0 +1,99 @@
+.threads {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.threads .thread {
+  margin: 10px auto;
+  padding: 10px;  
+  border: 1px solid #bbb;
+  border-radius: 10px;
+}
+.thread.unread {
+  border: 2px solid #0373a3;
+  border-radius: 10px;  
+}
+.thread .thumb {
+  text-align: center;
+}
+.thread .thumb img {
+  width: 100%;
+}
+.thread .who {
+  font-weight: bold;
+  font-family: tenderness, Arial, sans-serif;
+  font-size: 18px;
+  color: #666;
+}
+.thread .when {
+  color: #999;
+  font-size: 12px;
+}
+.thread a .preview {
+  color: #999;
+}
+.thread a:hover .preview {
+  border-color: #999;
+}
+.thread .preview.yours {
+  border: 1px solid #ccc;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-top-left-radius: 15px;
+  padding: 15px 15px 15px 10px;
+  margin: 10px 20px 10px 0px;
+}
+.thread .preview.mine {
+  border: 1px solid #ccc;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 15px;
+  padding: 15px 10px 15px 15px;
+  margin: 10px 0px 10px 20px;
+  background-color: rgba(225, 195, 0, .1);
+  text-align: right;
+}
+
+.thread .title {
+  display: none;
+}
+
+.threads .action {
+  width: 100%;
+  text-align: center;
+  padding: 5px 0 0 0;
+}
+.threads .action {
+  font-size: 1.5em;
+}
+.threads .action a.view:hover,
+.threads .action a.message:hover {
+  color: #80b1cc;
+}
+.threads .action a.favorite,
+.threads .action a.not-favorite {
+  color: #bc0032;
+}
+.threads .action a.favorite:hover,
+.threads .action a.not-favorite:hover {
+  color: #f98eab;
+}
+.threads .action a.block,
+.threads .action a.not-block {
+  color: #bc0032;
+}
+.threads .action a.block:hover,
+.threads .action a.not-block:hover {
+  color: #f98eab;
+}
+.thread a.do-open {
+  margin-right: 20px;
+}
+
+@media (max-width: 480px){
+  .threads.lazy-load .who, .threads.lazy-load .when {
+    text-align: center;
+  }
+
+}
