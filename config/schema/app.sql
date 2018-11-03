@@ -869,7 +869,7 @@ create table user_logins (
              primary key (id),
   constraint user_logins_uid_fk
              foreign key (user_id)
-             references users (id)
+             references users (id) on delete cascade
 ) character set utf8mb4;
 
 create table user_clicks (
@@ -883,5 +883,5 @@ create table user_clicks (
              primary key (id),
   constraint user_clicks_uid_fk
              foreign key (user_id)
-             references users (id)
+             references users (id) on delete cascade
 ) character set utf8mb4;

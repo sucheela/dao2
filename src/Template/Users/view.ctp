@@ -35,10 +35,10 @@ $hb = $this->Dao->getBranchName($user->hour_branch_id);
 
 // images
 if (empty($images)){
-  $hero = '<img src="/img/branches/' . strtolower($yb) . '" class="image-responsive"/>';
+  $hero = '<img src="/img/branches/' . strtolower($yb) . '" class="img-responsive"/>';
 } else {
-  $img = array_shift($images);
-  $hero = '<img src="/images/view/' . $img['file_id'] . '" class="image-responsive"/>';
+  $img = $images[0];
+  $hero = '<img src="/img/profiles/' . base64_encode(md5($img['id'])) . '" class="img-responsive"/>';
 }
 
 $action_data = array('encrypted_id'    => $encrypted_id,
@@ -57,7 +57,10 @@ $action_data = array('encrypted_id'    => $encrypted_id,
       </div><!-- .hero-image -->
       <div class="more-images">
         <?php foreach ($images as $img){ ?>
-        <img src="/images/thumb/<?php echo $img['file_id'] ?>" class="image-responsive"/>
+        <a href="#">
+          <img src="/img/profiles/<?php echo base64_encode(md5($img['id'])); ?>"
+               class="img-responsive"/>
+        </a>
         <?php } ?>
       </div><!-- .more-images -->
 
@@ -99,7 +102,7 @@ $action_data = array('encrypted_id'    => $encrypted_id,
     <div class="col-sm-2">
       <h4><?php echo $yb ?> Year</h4>
       <img src="/img/branches/<?php echo
-      strtolower($yb) ?>" class="image-responsive" title="<?php echo $yb
+      strtolower($yb) ?>" class="img-responsive" title="<?php echo $yb
        ?>" data-toggle="tooltip"/>
     </div>
     <div class="col-sm-5">
@@ -116,7 +119,7 @@ $action_data = array('encrypted_id'    => $encrypted_id,
     <div class="col-sm-2">
       <h4><?php echo $mb ?> Month</h4>
       <img src="/img/branches/<?php echo
-      strtolower($mb) ?>" class="image-responsive" title="<?php echo $mb
+      strtolower($mb) ?>" class="img-responsive" title="<?php echo $mb
        ?>" data-toggle="tooltip"/>
     </div>
     <div class="col-sm-5">
@@ -133,7 +136,7 @@ $action_data = array('encrypted_id'    => $encrypted_id,
     <div class="col-sm-2">
       <h4><?php echo $db ?> Day</h4>
       <img src="/img/branches/<?php echo
-      strtolower($db) ?>" class="image-responsive" title="<?php echo $db
+      strtolower($db) ?>" class="img-responsive" title="<?php echo $db
        ?>" data-toggle="tooltip"/>
     </div>
     <div class="col-sm-5">
@@ -150,7 +153,7 @@ $action_data = array('encrypted_id'    => $encrypted_id,
     <div class="col-sm-2">
       <h4><?php echo $hb ?> Hour</h4>
       <img src="/img/branches/<?php echo
-      strtolower($hb) ?>" class="image-responsive" title="<?php echo $hb
+      strtolower($hb) ?>" class="img-responsive" title="<?php echo $hb
        ?>" data-toggle="tooltip"/>
     </div>
     <div class="col-sm-5">

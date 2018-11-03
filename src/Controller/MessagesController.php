@@ -69,6 +69,7 @@ class MessagesController extends AppController {
     $messages = $this->Messages->getMessagesByThread($thread_id);
     if (empty($messages)){
       $this->render('404');
+      return;
     }
     
     // figure out the other side

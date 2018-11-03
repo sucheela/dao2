@@ -28,9 +28,11 @@
     <?= $this->Html->css('font-awesome.min.css') ?>
     <?= $this->Html->css('global.css') ?>
     <?= $this->Html->css('message.css') ?>
-    <?= $this->Html->css('home.css') ?>
-    
+    <?= $this->Html->css('home.css') ?>    
     <?= $this->fetch('css') ?>
+  
+  <?= $this->Html->script('jquery.min.js') ?>
+  <?= $this->Html->script('bootstrap.min.js') ?>
 </head>
 <body>
 
@@ -130,8 +132,6 @@
       | <a href="terms.php">Terms and Conditions</a></p>
   </footer>
 
-  <?= $this->Html->script('jquery.min.js') ?>
-  <?= $this->Html->script('bootstrap.min.js') ?>
   <?= $this->Html->script('global.js') ?>
   <?= $this->Html->script('message.js') ?>
   <?= $this->fetch('script') ?>

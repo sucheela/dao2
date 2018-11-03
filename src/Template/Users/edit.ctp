@@ -1,6 +1,7 @@
 <?php
 $this->assign('title', 'My Profile');
 $this->assign('css', $this->Html->css('myprofile.css'));
+$this->assign('script', $this->Html->script('profile.js'));
 
 $hour_options = $this->Dao->getHourOptions();
 $age = $this->Dao->getAge($user->birth_date->i18nFormat('yyyy-MM-dd'));
@@ -8,10 +9,10 @@ $age = $this->Dao->getAge($user->birth_date->i18nFormat('yyyy-MM-dd'));
 // images
 $yb = $this->Dao->getBranchName($user->year_branch_id);
 if (empty($images)){
-  $hero = '<img src="/img/branches/' . strtolower($yb) . '" class="image-responsive"/>';
+  $hero = '<img src="/img/branches/' . strtolower($yb) . '" class="img-responsive"/>';
 } else {
-  $img = array_shift($images);
-  $hero = '<img src="/images/view/' . $img['file_id'] . '" class="image-responsive"/>';
+  $img = $images[0];
+  $hero = '<img src="/img/profiles/' . base64_encode(md5($img['id'])) . '" class="img-responsive"/>';
 }
 ?>
 <div class="profile">
@@ -28,7 +29,10 @@ if (empty($images)){
       </div><!-- .hero-image -->
       <div class="more-images">
         <?php foreach ($images as $img){ ?>
-        <img src="/images/thumb/<?php echo $img['file_id'] ?>" class="image-responsive"/>
+        <a href="#">
+          <img src="/img/profiles/<?php echo base64_encode(md5($img['id'])); ?>"
+               class="img-responsive"/>
+        </a>
         <?php } ?>
       </div><!-- .more-images -->
     </div><!-- .profile-images -->

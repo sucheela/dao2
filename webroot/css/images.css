@@ -1,0 +1,148 @@
+
+.fileinput-button,
+.fileinput-image {
+  position: relative;
+  overflow: hidden;
+}
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 20px !important;
+  direction: ltr;
+  cursor: pointer;
+  width: 40px;
+}
+.fileinput-image input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px !important;
+  direction: ltr;
+  cursor: pointer;
+}
+
+/* Fixes for IE < 8 */
+@media screen\9 {
+  .fileinput-button input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
+}
+
+.images ul {
+  list-style: none;
+}
+.images ul li {
+  width: 23%;
+  padding: 15px;
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+}
+.images .action {
+  width: 100%;
+  text-align: center;
+  padding: 5px 0 0 0;
+  font-size: 1.5em;
+}
+.images .action .file,
+.images .action .camera {
+  font-size: 1sem;
+}
+.images .action .file:hover,
+.images .action .default:hover {
+  color: #80b1cc;
+}
+.images .action .camera,
+.images .action .remove {
+  color: #bc0032;
+}
+.images .action .camera:hover,
+.images .action .remove:hover {
+  color: #f98eab;
+}
+.action .file {
+  color: #0373a3;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.photo {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  padding: 5px;
+  text-align: center;
+}
+.add-photo {
+  text-align: center;
+}
+.add-photo .fa {
+  font-size: 120px;
+  color: #efefef;
+  margin-top: 20%;
+}
+.photo img {
+  max-height: 100%;  
+  max-width: 100%; 
+  width: auto;
+  height: auto;
+  margin: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.photo .error {
+  display: inline-block;
+  margin-top: 45%;
+  z-index: 3;
+  position: absolute;
+  width: 95%;
+  left: 0px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, .9);
+}
+.photo .progress {
+  margin-top: 45%;
+  position: absolute;
+  z-index: 2;
+  width: 95%;
+}
+.photo canvas {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+}
+
+@media (max-width: 480px){
+  .images ul li {
+    width: 90%;
+  }
+}
+
+
+
+#photo-modal {
+  width: 100%;
+}
+#photo-modal img {
+  max-width: 100%;
+}
+#photo-modal .modal-header {
+  border: none;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+#photo-modal .modal-header .close {
+  margin-top: -10px;
+}

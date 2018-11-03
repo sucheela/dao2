@@ -4,7 +4,7 @@ $this->assign('css', $this->Html->css('messages.css'));
 $this->assign('script', $this->Html->script(['bootstrap-notify.min.js', 'profile.js', 'messages.js']));
 
 if ($image_id){
-  $img_src = "/images/thumb/$image_id";  
+  $img_src = '/img/thumbs/' . base64_encode(md5($image_id));  
 } else {
   $img_src = "/img/branches/" . strtolower($this->Dao->getBranchName($month_branch_id));
 }
@@ -29,7 +29,7 @@ $action_data = array('encrypted_id'    => $encrypted_id,
   <div class="col-sm-3" style="text-align: center;">
     <a href="<?php echo $view_url ?>">
       <div class="thumb">
-        <img class="image-responsive" src="<?php echo $img_src; ?>"/>
+        <img class="img-responsive" src="<?php echo $img_src; ?>"/>
       </div>
     </a>
     <div class="who"><?php echo h($user_name); ?></div>

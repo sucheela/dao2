@@ -1,10 +1,18 @@
 $(function(){
 
+  // images
+  $('.more-images a').click(function(e){
+    e.preventDefault();
+    var src = $(this).find('img').attr('src');
+    $('.hero-image img').attr('src', html_entities(src));
+  });
+
   // blocking users
   $('.matches ul, .profile, .thread').on('click', 'a.block', function(e){
     e.preventDefault();
     var user_id = $(this).closest('.action').data('user_id');
     var user_name = $(this).closest('.action').data('user_name');
+    user_name = html_entities(html_entity_decode(user_name));
     var anchor = this;
     var msg = '';
     $.ajax({
@@ -78,6 +86,7 @@ $(function(){
     e.preventDefault();
     var user_id = $(this).closest('.action').data('user_id');
     var user_name = $(this).closest('.action').data('user_name');
+    user_name = html_entities(html_entity_decode(user_name));
     var anchor = this;
     var msg = '';
     $.ajax({
@@ -151,6 +160,7 @@ $(function(){
     e.preventDefault();
     var user_id = $(this).closest('.action').data('user_id');
     var user_name = $(this).closest('.action').data('user_name');
+    user_name = html_entities(html_entity_decode(user_name));
     var fav_a = this;
     var msg = '';
     $.ajax({
@@ -223,6 +233,7 @@ $(function(){
     e.preventDefault();
     var user_id = $(this).closest('.action').data('user_id');
     var user_name = $(this).closest('.action').data('user_name');
+    user_name = html_entities(html_entity_decode(user_name));
     var anchor = this;
     var msg = '';
     
@@ -293,5 +304,5 @@ $(function(){
     });
     
   });
-
+    
 });

@@ -385,7 +385,7 @@ update users
 update users
    set status = 'Deleted',
        deleted_date = current_timestamp,
-       email = concat(email, '-deactivated-', id)
+       email = concat(email, '-deleted-', id)
  where id = :user_id
    and status in ('Active', 'Inactive')";
     $bind = array(':user_id' => $user_id);

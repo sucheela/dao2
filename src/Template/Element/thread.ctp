@@ -1,6 +1,6 @@
 <?php
 if ($image_id){
-  $img_src = "/images/thumb/$image_id";  
+  $img_src = '/img/thumbs/' . base64_encode(md5($image_id));  
 } else {
   $img_src = "/img/branches/" . strtolower($this->Dao->getBranchName($month_branch_id));
 }
@@ -8,7 +8,7 @@ $last_msg_date = new DateTime($last_created_date);
 $now = new DateTime();
 $last_date_string = $this->Dao->relativeTime($last_msg_date, $now);
 $encrypted_id = base64_encode(Cake\Utility\Security::encrypt($user_id, ENCRYPT_KEY));
-$view_url = '/users/view/' . $user_id .'/' . urlencode(h($user_name));
+$view_url = '/users/view/' . urlencode(h($user_name)) . '?u=' . $encrypted_id;
 $is_favorite = (isset($favorites) &&
                 is_array($favorites) &&
                 in_array($user_id, $favorites)
@@ -23,9 +23,9 @@ $action_data = array('encrypted_id'    => $encrypted_id,
 ?>
 <div class="thread row  <?php echo $has_unopened ? 'unread' : ''; ?>">
   <div class="col-sm-3">
-    <a href="<?php echo $view_url ?>">
+    <a href="<?php echo $view_url; ?>">
       <div class="thumb">
-        <img class="image-responsive" src="<?php echo $img_src; ?>"/>
+        <img class="img-responsive" src="<?php echo $img_src; ?>"/>
       </div>
     </a>
     <?php echo $this->element('actionbox', $action_data); ?>

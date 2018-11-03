@@ -9,6 +9,8 @@ use Cake\Core\Exception\Exception;
 use Cake\Auth\DefaultPasswordHasher;
 use Cake\ORM\TableRegistry;
 use App\Lib\ChineseCalendar;
+use Cake\Utility\Security;
+use App\View\Helper\DaoHelper;
 
 class UsersController extends AppController {
 
@@ -694,7 +696,13 @@ class UsersController extends AppController {
     $this->set('is_deleted', $is_deleted);
   } // delete()
   
-  public function view($id=null){
+  public function view(){
+    if (isset($_GET['u']) &&
+        ($encrypted_id = $_GET['u'])){
+      $id = Security::decrypt(base64_decode($encrypted_id),
+                              ENCRYPT_KEY);
+    }
+    
     if (empty($id) || !is_numeric($id)){
       $id = $this->Auth->user('id');
     }
@@ -739,9 +747,9 @@ class UsersController extends AppController {
               'is_hidden' => '0'
             ])
             ->order([
-              'is_default' => 'desc',
+              'is_default' => 'asc',
               'sort_order' => 'asc',
-              'created_date' => 'asc'
+              'created_date' => 'desc'
             ])
             ->toArray();
     $this->set('images', $images);
