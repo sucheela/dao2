@@ -120,8 +120,8 @@ class UsersController extends AppController {
         $mailer
           ->setTemplate($template, 'default')
           ->emailFormat('both')
-          //->setTo($email)
-          ->setTo('sucheela.n@gmail.com')
+          ->setTo($email)
+          //->setTo('sucheela.n@gmail.com')
           ->setFrom('register@dao.dating')
           ->setSubject('Dao.Dating ' . ucfirst($token))
           ->setAttachments([
@@ -323,8 +323,8 @@ class UsersController extends AppController {
           $mailer
             ->setTemplate('register', 'default')
             ->emailFormat('both')
-            //->setTo($this->request->getData('email'))
-            ->setTo('sucheela.n@gmail.com')
+            ->setTo($this->request->getData('email'))
+            //->setTo('sucheela.n@gmail.com')
             ->setFrom('register@dao.dating')
             ->setSubject('Dao.Dating Registration Code')
             ->setAttachments([
@@ -501,8 +501,8 @@ class UsersController extends AppController {
         $mailer
           ->setTemplate('email_change_notify', 'default')
           ->emailFormat('both')
-          //          ->setTo($old_email)
-          ->setTo('sucheela.n@gmail.com')
+          ->setTo($old_email)
+          //->setTo('sucheela.n@gmail.com')
           ->setFrom('alex@dao.dating')
           ->setSubject('Dao.Dating Email Address Change')
           ->setAttachments([
@@ -518,8 +518,8 @@ class UsersController extends AppController {
         $mailer
           ->setTemplate('email_change', 'default')
           ->emailFormat('both')
-          //          ->setTo($new_email)
-          ->setTo('sucheela.n@gmail.com')
+          ->setTo($new_email)
+          //->setTo('sucheela.n@gmail.com')
           ->setFrom('alex@dao.dating')
           ->setSubject('Dao.Dating Email Address Change Confirmation')
           ->setAttachments([
@@ -630,8 +630,8 @@ class UsersController extends AppController {
             $mailer
               ->setTemplate('delete', 'default')
               ->emailFormat('both')
-              //->setTo($user->email)
-              ->setTo('sucheela.n@gmail.com')
+              ->setTo($user->email)
+              //->setTo('sucheela.n@gmail.com')
               ->setFrom('register@dao.dating')
               ->setSubject('Dao.Dating Profile Deletion Confirmation')
               ->setAttachments([

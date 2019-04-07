@@ -1,4 +1,4 @@
-Thank you for the registraion!
+Thank you for the registration!
 
 Please click the link below and follow the instructions to set your Dao.Dating password:
 
