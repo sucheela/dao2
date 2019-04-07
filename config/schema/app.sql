@@ -820,7 +820,7 @@ create table messages (
   message             text,
   created_date        timestamp default current_timestamp,
   is_opened           enum('0', '1') default '0',
-  is_hidden           enum('0', '1') default '0'
+  is_hidden           enum('0', '1') default '0',
   constraint messages_pk
              primary key (id),
   constraint messages_from_uid_fk
