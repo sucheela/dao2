@@ -14,6 +14,10 @@ $(function(){
     var user_name = $(this).closest('.action').data('user_name');
     user_name = html_entities(html_entity_decode(user_name));
     var anchor = this;
+    var li;
+    if ($(this).closest('li').length){
+      li = $(this).closest('li');
+    }
     var msg = '';
     $.ajax({
       url : '/blocks/add',
@@ -88,6 +92,10 @@ $(function(){
     var user_name = $(this).closest('.action').data('user_name');
     user_name = html_entities(html_entity_decode(user_name));
     var anchor = this;
+    var li;
+    if ($(this).closest('li').length){
+      li = $(this).closest('li');
+    }    
     var msg = '';
     $.ajax({
       url : '/blocks/delete',
@@ -136,7 +144,9 @@ $(function(){
             // enable tooltip
             $('a.block').tooltip();
           } else { // else if on My Black List page
-            $(li).hide('slow');
+            if (li){
+              $(li).hide('slow');
+            }
           }
           
         }
@@ -162,6 +172,10 @@ $(function(){
     var user_name = $(this).closest('.action').data('user_name');
     user_name = html_entities(html_entity_decode(user_name));
     var fav_a = this;
+    var li;
+    if ($(this).closest('li').length){
+      li = $(this).closest('li');
+    }
     var msg = '';
     $.ajax({
       url : '/favorites/add',
@@ -235,6 +249,10 @@ $(function(){
     var user_name = $(this).closest('.action').data('user_name');
     user_name = html_entities(html_entity_decode(user_name));
     var anchor = this;
+    var li;
+    if ($(this).closest('li').length){
+      li = $(this).closest('li');
+    }
     var msg = '';
     
     $.ajax({

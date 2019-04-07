@@ -7,7 +7,7 @@ $this->assign('css', $this->Html->css('login.css'));
   <?php echo $this->Flash->render(); ?>
 
   <?php if ($is_valid_token){ ?>
-    <?php $this->element('passwordform') ?>
+    <?php echo $this->element('passwordform') ?>
   <?php } // end if is valid token ?>
 
   <?php if ($this->request->here(false) != '/users/password'){ ?>

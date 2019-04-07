@@ -2,7 +2,7 @@
 $age = $this->Dao->getAge($birth_date);
 $stars = $this->Dao->scoreStars($total_score, $has_hour);
 $encrypted_id = base64_encode(Cake\Utility\Security::encrypt($id, ENCRYPT_KEY));
-$view_url = '/users/view/' . urlencode(h($name)) . '?u=' . $encrypted_id;
+$view_url = '/users/view/' . urlencode(h($name)) . '?u=' . urlencode($encrypted_id);
 if (isset($last_visited_date)){
   // Recent Visitors page has this var
   $last_visited = new DateTime($last_visited_date);

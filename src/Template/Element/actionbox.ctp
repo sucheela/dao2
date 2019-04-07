@@ -11,7 +11,11 @@
     <a href="/favorites/add" class="favorite" data-toggle="tooltip" title="Save to my favorites."><span class="fa fa-heart"></span></a>
       <?php } ?>
     <a href="#" class="message" data-toggle="tooltip" title="Send a message."><span class="fa fa-envelope"></span></a>
+      <?php if (isset($is_blocked) && $is_blocked){ ?>
+    <a href="/blocks/delete" class="not-block" data-toggle="tooltip" title="Remove from My Black List"><span class="fa fa-circle-o"></span></a>
+      <?php } else { // else if user is not blocked ?>
     <a href="/blocks/add" class="block" data-toggle="tooltip" title="Do not show me this profile again."><span class="fa fa-ban"></span></a>
+      <?php } // end else if user is ot blocked ?>
     <?php } else { // else if on My Black List page ?>
     <a href="/blocks/delete" class="not-block" data-toggle="tooltip" title="Remove from My Black List"><span class="fa fa-circle-o"></span></a>
     <?php } // end else if on My Black List Page ?>

@@ -46,7 +46,8 @@ $action_data = array('encrypted_id'    => $encrypted_id,
                      'in_profile_view' => true,
                      'in_user_block'   => false,
                      'view_url'        => null,
-                     'is_favorite'     => $is_favorite);
+                     'is_favorite'     => $is_favorite,
+                     'is_blocked'      => $is_blocked);
 ?>
 <div class="profile">
   <h1 class="name"><?php echo h($user->name) ?></h1>
